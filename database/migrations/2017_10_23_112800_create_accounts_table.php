@@ -15,13 +15,13 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->string('login');
-            $table->string('password');
-            $table->string('lastactive');
-            $table->string('access_level');
-            $table->string('lastIP');
-            $table->string('lastServer');
+            //$table->timestamps();
+            $table->string('login')->default(" ");
+            $table->string('password')->nullable();
+            $table->decimal('lastactive',20,0)->nullable();
+            $table->integer('access_level')->nullable();
+            $table->string('lastIP')->nullable();
+            $table->integer('lastServer')->default(1)->nullable();
         });
     }
 

@@ -1,4 +1,6 @@
+<a href={{ route('eloquent.account.create') }}> Criar nova Account</a></br></br>
 Listagem de clientes
+
 <table border="1">
 	<thead>
 		<tr>

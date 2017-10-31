@@ -21,7 +21,7 @@ class EloquentAccountsController extends Controller
     public function store(Request $request)
     {
     	$account = new Account();
-    	$this->validate($request, $account->rules);
+    	$this->validate($request, Account::$rules);
     	$account->create($request->all());
     	return redirect()->route('eloquent.account.list');
     }

@@ -13,8 +13,12 @@ class Account extends Model
     	'login','password','lastactive','access_level','lastIP','lastServer'
     ];
     
-    public $rules = [
-    	'login' => 'required|min:3|max:45',
-    	'password' => 'required|max:45'
+    public static $rules = [
+    	'login' => 'required|min:3|max:45|string',
+    	'password' => 'max:45',
+    	'lastactive' => 'numeric',
+    	'access_level' => 'integer',
+    	'lastIP' => 'ip',
+    	'lastServer' => 'max:4|integer'
     ];
 }

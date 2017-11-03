@@ -18,12 +18,12 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('name');
-            $table->integer('credits');
-            $table->string('lang_fk');
+            $table->string('name')->nullable();
+            $table->integer('credits')->default(0);
+            $table->string('lang_fk')->default("en-GB");
             
-            $table->rememberToken();
-            $table->timestamps();
+            //$table->rememberToken();
+            //$table->timestamps();
         });
     }
 

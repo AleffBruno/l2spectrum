@@ -24,8 +24,7 @@ class CreateUsersTable extends Migration
     		
     		$table->index('lang_fk','fk_users_1');
     		
-    		$table->foreign('lang_fk')
-    		->references('uuid')->on('languages');
+    		$table->foreign('lang_fk')->references('uuid')->on('languages');
     		
     		
     	});

@@ -27,10 +27,9 @@ class CreateAccountsTable extends Migration
         	
         	$table->index('user_fk','fk_accounts_1');
         	
-        	$table->foreign('user_fk')
-        	->references('id')->on('users');
+        	$table->foreign('user_fk')->references('id')->on('users');
         	
-        	$table->timestamps();
+        	//$table->timestamps();
         });
     }
 

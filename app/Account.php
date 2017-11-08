@@ -13,6 +13,10 @@ class Account extends Model
     	'login','password','lastactive','access_level','lastIP','lastServer'
     ];
     
+    protected $hidden = [
+    		'password',
+    ];
+    
     public static $rules = [
     	'login' => 'required|min:3|max:45|string',
     	'password' => 'max:45',

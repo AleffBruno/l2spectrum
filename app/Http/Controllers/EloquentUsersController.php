@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class EloquentUsersController extends Controller
 {
@@ -14,10 +15,10 @@ class EloquentUsersController extends Controller
 	
 	public function storeuser(Request $request)
 	{
-		echo "user store";
-		//$account = new Account();
-		//$this->validate($request, Account::$rules);
-		//$account->create($request->all());
-		//return redirect()->route('eloquent.account.list');
+		
+		$user = new User();
+		$this->validate($request, User::$rules);
+		$user->create($request->all());
+		return redirect()->route('eloquent.account.list');
 	}
 }

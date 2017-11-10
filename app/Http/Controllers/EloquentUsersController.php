@@ -15,10 +15,14 @@ class EloquentUsersController extends Controller
 	
 	public function storeuser(Request $request)
 	{
-		
 		$user = new User();
 		$this->validate($request, User::$rules);
 		$user->create($request->all());
 		return redirect()->route('eloquent.account.list');
+	}
+	
+	public function deleteuser(Request $request)
+	{
+		
 	}
 }

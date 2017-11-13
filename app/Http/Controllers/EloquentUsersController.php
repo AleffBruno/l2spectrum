@@ -8,6 +8,12 @@ use App\User;
 class EloquentUsersController extends Controller
 {
     //
+    public function index()
+    {
+    	$users = User::all();
+    	return view('eloquent.index',['users'=>$users]); 
+    }
+	
 	public function createuser()
 	{
 		return view('eloquent.createuser');
@@ -18,11 +24,13 @@ class EloquentUsersController extends Controller
 		$user = new User();
 		$this->validate($request, User::$rules);
 		$user->create($request->all());
-		return redirect()->route('eloquent.account.list');
+		return redirect()->route('eloquent.user.list');
 	}
 	
-	public function deleteuser(Request $request)
+	public function deleteuser($id)
 	{
-		
+		$user = User::find($id);
+		$user->delete();
+		return redirect()->route('eloquent.user.list');
 	}
 }

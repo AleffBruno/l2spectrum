@@ -24,6 +24,8 @@ Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
 	Route::post('accounts/store','EloquentAccountsController@store')->name('account.store');
 	Route::get('users/createuser','EloquentUsersController@createuser')->name('users.createuser');
 	Route::post('users/storeuser','EloquentUsersController@storeuser')->name('user.store');
+	Route::get('users','EloquentUsersController@index')->name('user.list');
+	Route::get('users/delete/{id}','EloquentUsersController@deleteuser')->name('user.delete');
 });
 
 Route::get('minharota/hello',function(){

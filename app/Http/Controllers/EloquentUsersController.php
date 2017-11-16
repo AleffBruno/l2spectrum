@@ -33,4 +33,33 @@ class EloquentUsersController extends Controller
 		$user->delete();
 		return redirect()->route('eloquent.user.list');
 	}
+	
+	public function updateuser($id , Request $request)
+	{
+		//$name = $request->input('name');
+		$userToUpdate = User::find($id);
+		$this->validate($request, User::$rules);
+		//$userToUpdate->name = 'New Flight Name';
+		
+		if($request['name'] == "" || !isset($request['name']))
+		{
+			$userToUpdate->name = $userToUpdate['name'];
+		}else{
+			$userToUpdate->name = $request['name'];
+		}
+		if($request['email'] == "" || !isset($request['email']))
+		{
+			$userToUpdate->email = $userToUpdate['email'];
+		}else{
+			$userToUpdate->email = $request['email'];
+		}
+		if($request['password'] == "" || !isset($request['password']))
+		{
+			$userToUpdate->password = $userToUpdate['password'];
+		}else{
+			$userToUpdate->password = $request['password'];
+		}
+		
+		$userToUpdate->save();
+	}
 }

@@ -8,7 +8,8 @@ Listagem de usuarios
 			<th>#</th>
 			<th>email</th>
 			<th>name</th>
-			<th>acao</th>
+			<th>acao deletar</th>
+			<th>acao atualizar</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,6 +19,7 @@ Listagem de usuarios
 				<td>{{$user->email}}</td>
 				<td>{{$user->name}}</td>
 				<td><a href="{{route('eloquent.user.delete',$user->id)}}">deletar</a></td>
+				<td><a href="{{route('eloquent.user.update',$user->id)}}">atualizar</a></td>
 			</tr>
 		@endforeach
 	</tbody>

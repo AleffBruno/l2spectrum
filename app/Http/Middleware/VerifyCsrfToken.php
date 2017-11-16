@@ -16,7 +16,5 @@ class VerifyCsrfToken extends Middleware
 	
     protected $except = [
         //
-        //'/eloquent/*',
-    	'eloquent/users/createuser'
     ];
 }

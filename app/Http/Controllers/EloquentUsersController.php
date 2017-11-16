@@ -40,7 +40,12 @@ class EloquentUsersController extends Controller
 		$userToUpdate = User::find($id);
 		$this->validate($request, User::$rules);
 		//$userToUpdate->name = 'New Flight Name';
+		$userToUpdate->name = $request['name'];
+		$userToUpdate->email = $request['email'];
+		$userToUpdate->password = $request['password'];
+		$userToUpdate->save();
 		
+		/*
 		if($request['name'] == "" || !isset($request['name']))
 		{
 			$userToUpdate->name = $userToUpdate['name'];
@@ -61,5 +66,6 @@ class EloquentUsersController extends Controller
 		}
 		
 		$userToUpdate->save();
+		*/
 	}
 }

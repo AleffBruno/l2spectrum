@@ -38,12 +38,45 @@ class EloquentUsersController extends Controller
 	{
 		//$name = $request->input('name');
 		$userToUpdate = User::find($id);
-		$this->validate($request, User::$rules);
-		//$userToUpdate->name = 'New Flight Name';
-		$userToUpdate->name = $request['name'];
-		$userToUpdate->email = $request['email'];
-		$userToUpdate->password = $request['password'];
-		$userToUpdate->save();
+		
+		if($request['name'] == "" || $request['name'] == null)
+		{
+			$request['name'] = $userToUpdate->name;
+		}
+		
+		if($request['email'] == "" || $request['email'] == null)
+		{
+			$request['email'] = $userToUpdate->email;
+		}
+		
+		if($request['password'] == "" || $request['password'] == null)
+		{
+			$request['password'] = $userToUpdate->password;
+		}
+		
+		
+		return route('eloquent.user.update');
+		if($this->validate($request, User::$rules))
+		{
+			echo "bom";
+		}else{
+			echo "ruim";
+		}
+		
+		
+		
+		
+		
+		
+		
+// 		$userToUpdate->name = $request['name'];
+// 		$userToUpdate->email = $request['email'];
+// 		$userToUpdate->password = $request['password'];
+// 		$userToUpdate->save();
+
+		
+		
+		
 		
 		/*
 		if($request['name'] == "" || !isset($request['name']))

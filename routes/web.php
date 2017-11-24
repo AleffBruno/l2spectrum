@@ -26,6 +26,7 @@ Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
 	Route::post('users/storeuser','EloquentUsersController@storeuser')->name('user.store');
 	Route::get('users','EloquentUsersController@index')->name('user.list');
 	Route::get('users/delete/{id}','EloquentUsersController@deleteuser')->name('user.delete');
+	Route::get('users/updateview/{id}','EloquentUsersController@updateuser_view')->name('user.updateuserview');
 	Route::post('users/update/{id}','EloquentUsersController@updateuser')->name('user.update');
 });
 

@@ -69,51 +69,13 @@ class EloquentUsersController extends Controller
 		$userToUpdate->save();
 		
 		return redirect()->route('eloquent.user.list');
-		
-		
-// 		if($this->validate($request, User::$rules))
-// 		{
-// 			echo "bom";
-// 		}else{
-// 			echo "ruim";
-// 		}
-		
-		
-		
-		
-		
-		
-		
-// 		$userToUpdate->name = $request['name'];
-// 		$userToUpdate->email = $request['email'];
-// 		$userToUpdate->password = $request['password'];
-// 		$userToUpdate->save();
 
-		
-		
-		
-		
-		/*
-		if($request['name'] == "" || !isset($request['name']))
-		{
-			$userToUpdate->name = $userToUpdate['name'];
-		}else{
-			$userToUpdate->name = $request['name'];
-		}
-		if($request['email'] == "" || !isset($request['email']))
-		{
-			$userToUpdate->email = $userToUpdate['email'];
-		}else{
-			$userToUpdate->email = $request['email'];
-		}
-		if($request['password'] == "" || !isset($request['password']))
-		{
-			$userToUpdate->password = $userToUpdate['password'];
-		}else{
-			$userToUpdate->password = $request['password'];
-		}
-		
-		$userToUpdate->save();
-		*/
 	}
+	
+	public function createaccount($id)
+	{
+		$user = User::find($id);
+		return view('eloquent.createaccount',['userid'=>$user->id]);
+	}
+	
 }

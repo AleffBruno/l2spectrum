@@ -28,7 +28,8 @@ class EloquentAccountsController extends Controller
     	$account = new Account();
     	$this->validate($request, Account::$rules);
     	$account->create($request->all());
-    	return redirect()->route('eloquent.account.list');
+    	
+    	return redirect(route('eloquent.user.list'));
     }
     
 }

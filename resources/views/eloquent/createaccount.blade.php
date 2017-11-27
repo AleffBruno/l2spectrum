@@ -1,4 +1,5 @@
 <html>
+<h1>Criar Account</h1>
 <body>
 @if(isset($errors) && count($errors) > 0)
 	@foreach($errors->all() as $error )
@@ -8,6 +9,7 @@
 
 <form method="post" action="{{route('eloquent.account.store')}}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
+	<input type="hidden" name="user_fk" value="{{$userid}}"/>
 	login<input type="text" name="login">
 	password<input type="text" name="password">
 	lastactive<input type="text" name="lastactive">

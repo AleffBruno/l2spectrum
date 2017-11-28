@@ -11,6 +11,7 @@ Listagem de usuarios
 			<th>acao deletar</th>
 			<th>acao atualizar</th>
 			<th>criar account</th>
+			<th>ver accounts</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,6 +23,7 @@ Listagem de usuarios
 				<td><a href="{{route('eloquent.user.delete',$user->id)}}">deletar</a></td>
 				<td><a href="{{route('eloquent.user.updateuserview',$user->id)}}">atualizar</a></td>
 				<td><a href="{{route('eloquent.user.createaccount',$user->id)}}">Nova Account</a></td>
+				<td><a href="{{route('eloquent.user.veraccounts',$user->id)}}">Ver Accounts</a></td>
 			</tr>
 		@endforeach
 	</tbody>

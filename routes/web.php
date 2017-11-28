@@ -30,6 +30,7 @@ Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
 	Route::get('users/updateview/{id}','EloquentUsersController@updateuser_view')->name('user.updateuserview');
 	Route::post('users/update/{id}','EloquentUsersController@updateuser')->name('user.update');
 	Route::get('users/createaccount/{id}','EloquentUsersController@createaccount')->name('user.createaccount');
+	Route::get('users/veraccounts/{id}','EloquentUsersController@veraccounts')->name('user.veraccounts');
 });
 
 Route::get('minharota/hello',function(){

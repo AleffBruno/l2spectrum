@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Account;
 
 class EloquentUsersController extends Controller
 {
@@ -76,6 +77,14 @@ class EloquentUsersController extends Controller
 	{
 		$user = User::find($id);
 		return view('eloquent.createaccount',['userid'=>$user->id]);
+	}
+	
+	public function veraccounts($id)
+	{
+		$accounts = Account::where('user_fk', $id)->get();
+		$user = User::find($id);
+		return view('eloquent.listagensdeaccounts',['accounts'=>$accounts,'user_name'=>$user->name]);
+		
 	}
 	
 }

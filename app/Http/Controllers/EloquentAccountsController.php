@@ -46,4 +46,22 @@ class EloquentAccountsController extends Controller
     	return view('eloquent.updateaccountview',['accountToUpdate'=>$accountToUpdate,'userid'=>$userid['id']]);
     }
     
+    public function updateaccount($login,Request $request)
+    {
+    	$accountToUpdate = Account::find($login);
+    	$userid = $accountToUpdate->getUser;
+    	$this->validate($request, Account::$rules);
+    	
+    	$accountToUpdate->login = $request['login'];
+    	$accountToUpdate->password = $request['password'];
+    	$accountToUpdate->lastactive= $request['lastactive'];
+    	$accountToUpdate->access_level= $request['access_level'];
+    	$accountToUpdate->lastIP= $request['lastIP'];
+    	$accountToUpdate->lastServer= $request['lastServer'];
+    	
+    	$accountToUpdate->save();
+    	
+    	return redirect()->route('eloquent.user.list');
+    }
+    
 }

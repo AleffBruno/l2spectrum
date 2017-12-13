@@ -7,7 +7,7 @@
 	@endforeach
 @endif
 
-<form method="post" action="#">
+<form method="post" action="{{route('eloquent.account.updateaccount',$accountToUpdate->login)}}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
 	<input type="hidden" name="user_fk" value="{{$userid}}"/>
 	login<input type="text" name="login" value="{{$accountToUpdate->login}}">

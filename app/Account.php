@@ -8,6 +8,8 @@ class Account extends Model
 {
     //
 	public $timestamps = false;
+	protected $primaryKey = 'login';
+	public $incrementing = false;
 	
     protected $fillable = [
     	'login','password','lastactive','access_level','lastIP','lastServer','user_fk'
@@ -28,4 +30,9 @@ class Account extends Model
     	'lastServer' => 'max:4|integer'
     	*/
     ];
+    
+    public function getUser()
+    {
+    	return $this->belongsTo(User::class,'user_fk','id');
+    }
 }

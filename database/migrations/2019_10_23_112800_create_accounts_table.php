@@ -25,7 +25,7 @@ class CreateAccountsTable extends Migration
         	
         	$table->primary('login');
         	
-        	$table->index('user_fk','fk_accounts_1');
+        	$table->index(['user_fk']);
         	
         	$table->foreign('user_fk')->references('id')->on('users');
         	

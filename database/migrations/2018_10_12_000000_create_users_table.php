@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
     		$table->integer('credits')->default('0');
     		$table->string('lang_fk', 5)->default('en-GB');
     		
-    		$table->index('lang_fk','fk_users_1');
+    		$table->index(['lang_fk']);
     		
     		$table->foreign('lang_fk')->references('uuid')->on('languages');
     		

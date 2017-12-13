@@ -33,4 +33,11 @@ class User extends Authenticatable
     		'email' => 'required|max:100|email',
     		'password' => 'required|max:100|min:4|string'
     ];
+    
+    public function getAccounts()
+    {
+    	return $this->hasMany(Account::class,'user_fk');
+    }
+    
+    
 }

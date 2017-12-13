@@ -81,8 +81,17 @@ class EloquentUsersController extends Controller
 	
 	public function veraccounts($id)
 	{
-		$accounts = Account::where('user_fk', $id)->get();
+		//$accounts = Account::where('user_fk', $id)->get();
 		$user = User::find($id);
+		
+		$accounts = $user->getAccounts;
+		
+		/*
+		foreach($accounts as $account)
+		{
+			echo ($account->login)."<br>";
+		}
+		*/
 		return view('eloquent.listagensdeaccounts',['accounts'=>$accounts,'user_name'=>$user->name]);
 		
 	}

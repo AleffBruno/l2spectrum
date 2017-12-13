@@ -22,6 +22,9 @@ Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
 	Route::get('accounts','EloquentAccountsController@index')->name('account.list');
 	Route::get('accounts/create','EloquentAccountsController@create')->name('account.create');
 	Route::post('accounts/store','EloquentAccountsController@store')->name('account.store');
+	Route::get('accounts/delete/{login}','EloquentAccountsController@delete')->name('account.delete');
+	Route::get('accounts/updateview/{login}','EloquentAccountsController@updateaccount_view')->name('account.updateaccountview');
+	
 	
 	Route::get('users/createuser','EloquentUsersController@createuser')->name('user.createuser');
 	Route::post('users/storeuser','EloquentUsersController@storeuser')->name('user.store');

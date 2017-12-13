@@ -20,7 +20,7 @@ class CreateLanguagesTable extends Migration
         	
         	$table->primary('uuid');
         	
-        	$table->timestamps();
+        	//$table->timestamps();
         });
     }
 

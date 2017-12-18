@@ -24,6 +24,8 @@ class EloquentUsersController extends Controller
 	{
 		$user = new User();
 		$this->validate($request, User::$rules);
+		//$request['password'] = Hash::make($request['password']);
+		$request['password'] = User::hashPassword($request['password']);
 		$user->create($request->all());
 		return redirect()->route('eloquent.user.list');
 		

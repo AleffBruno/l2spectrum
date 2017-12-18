@@ -39,5 +39,10 @@ class User extends Authenticatable
     	return $this->hasMany(Account::class,'user_fk');
     }
     
+    public static function hashPassword($password)
+    {
+    	$password = base64_encode(pack("H*", sha1(utf8_encode( $password ))));
+    	return $password;
+    }
     
 }

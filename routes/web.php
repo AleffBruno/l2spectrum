@@ -12,13 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('eloquent/login');
+})->name('login');
 
-Route::get('mostraecho','EloquentAccountsController@mostraecho');
+Route::get('mostraecho',['middleware'=>'loggedMine','uses'=>'EloquentAccountsController@mostraecho']);
 
 
-Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
+Route::group(['middleware'=>'loggedMine','prefix'=>'eloquent','as'=>'eloquent.'],function(){
+
 	Route::get('accounts','EloquentAccountsController@index')->name('account.list');
 	Route::get('accounts/create','EloquentAccountsController@create')->name('account.create');
 	Route::post('accounts/store','EloquentAccountsController@store')->name('account.store');
@@ -37,13 +38,13 @@ Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
 	Route::get('users/veraccounts/{id}','EloquentUsersController@veraccounts')->name('user.veraccounts');
 });
 
-Route::get('minharota/hello',function(){
-	return view('helloworld');
+Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
+	Route::get('login','EloquentUsersController@login_get')->name('user.login');
+	Route::post('login','EloquentUsersController@login_post')->name('user.login');
 });
 
-Route::get('minharota',function(){
-	echo "hello world";
-})->name('name_minharota');
+Route::get('logout',['uses'=>'EloquentUsersController@logoutUser','as'=>'logout']);
+
 
 Route::get('client/{id}/{name?}',function($id,$name='nada'){
 	return view('client-name',[
@@ -52,6 +53,3 @@ Route::get('client/{id}/{name?}',function($id,$name='nada'){
 	]);
 });
 
-Route::post('client',function(){
-	echo "formulario enviado";
-});

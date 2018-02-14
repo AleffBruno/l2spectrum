@@ -34,6 +34,11 @@ class User extends Authenticatable
     		'password' => 'required|max:100|min:4|string'
     ];
     
+    public static $feedBackMessages = [
+    		'notMatch' => 'Email ou Senha estão incorretos',
+    		
+    ];
+    
     public function getAccounts()
     {
     	return $this->hasMany(Account::class,'user_fk');
@@ -43,6 +48,7 @@ class User extends Authenticatable
     {
     	$password = base64_encode(pack("H*", sha1(utf8_encode( $password ))));
     	return $password;
+    	
     }
     
 }

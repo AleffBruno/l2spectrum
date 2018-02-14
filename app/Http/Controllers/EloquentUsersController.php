@@ -5,14 +5,44 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Account;
+use Illuminate\Support\Facades\Auth;
 
 class EloquentUsersController extends Controller
 {
-    //
+    
+	public function login_post(Request $request)
+	{
+		
+		$user = User::where('email', $request['email'])
+		->where('password', User::hashPassword($request['password']))
+		->first();
+		if($user==null)
+		{
+			return \Redirect::back()->withErrors([User::$feedBackMessages['notMatch']]);
+		}
+		
+		Auth::login($user);
+		return redirect()->route('eloquent.user.list');
+	}
+	
+	public function logoutUser()
+	{
+		Auth::logout();
+		return redirect()->route('eloquent.user.login');
+	}
+	
+	public function login_get(Request $request)
+	{
+		return view('eloquent/login');
+	}
+	
     public function index()
     {
-    	$users = User::all();
-    	return view('eloquent.index',['users'=>$users]); 
+    	//$users = User::all();
+    	$users = \DB::select('select * from users where id = ?', [Auth::user()->id]);
+
+    	//return view('eloquent.index',['users'=>$users]); 
+    	return view('eloquent.index',compact('users'));
     }
 	
 	public function createuser()
@@ -27,6 +57,7 @@ class EloquentUsersController extends Controller
 		//$request['password'] = Hash::make($request['password']);
 		$request['password'] = User::hashPassword($request['password']);
 		$user->create($request->all());
+		// este cara ainda nao esta autenticado
 		return redirect()->route('eloquent.user.list');
 		
 	}

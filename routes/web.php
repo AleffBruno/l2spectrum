@@ -28,8 +28,8 @@ Route::group(['middleware'=>'loggedMine','prefix'=>'eloquent','as'=>'eloquent.']
 	Route::post('accounts/update/{login}','EloquentAccountsController@updateaccount')->name('account.updateaccount');
 	
 	
-	Route::get('users/createuser','EloquentUsersController@createuser')->name('user.createuser');
-	Route::post('users/storeuser','EloquentUsersController@storeuser')->name('user.store');
+	
+	
 	Route::get('users','EloquentUsersController@index')->name('user.list');
 	Route::get('users/delete/{id}','EloquentUsersController@deleteuser')->name('user.delete');
 	Route::get('users/updateview/{id}','EloquentUsersController@updateuser_view')->name('user.updateuserview');
@@ -39,6 +39,8 @@ Route::group(['middleware'=>'loggedMine','prefix'=>'eloquent','as'=>'eloquent.']
 });
 
 Route::group(['prefix'=>'eloquent','as'=>'eloquent.'],function(){
+	Route::get('users/createuser','EloquentUsersController@createuser')->name('user.createuser');
+	Route::post('users/storeuser','EloquentUsersController@storeuser')->name('user.store');
 	Route::get('login','EloquentUsersController@login_get')->name('user.login');
 	Route::post('login','EloquentUsersController@login_post')->name('user.login');
 });

@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
     		
     		$table->foreign('lang_fk')->references('uuid')->on('languages');
     		
-    		
+    		$table->rememberToken();
     	});
     }
 

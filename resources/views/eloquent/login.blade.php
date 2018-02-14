@@ -14,5 +14,7 @@
 			<input type="password" name="password">
 			<input type="submit" value="Login">
 		</form>
+		
+		<a href="{{route('eloquent.user.createuser')}}">criar conta</a>
 	</body>
 </html>

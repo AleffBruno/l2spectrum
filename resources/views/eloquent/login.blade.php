@@ -9,7 +9,7 @@
 		<form method="POST" action="{{route('eloquent.user.login')}}">
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
 			Email
-			<input type="email" name="email">
+			<input type="email" name="email" value="{{old("email")}}">
 			Senha
 			<input type="password" name="password">
 			<input type="submit" value="Login">

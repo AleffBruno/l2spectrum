@@ -21,7 +21,7 @@ class CreateGameserversTable extends Migration
         	
         	$table->primary('server_id');
         	
-        	$table->timestamps();
+        	//$table->timestamps();
         	
         });
     }

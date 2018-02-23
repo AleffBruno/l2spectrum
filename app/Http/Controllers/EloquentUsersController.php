@@ -18,7 +18,7 @@ class EloquentUsersController extends Controller
 		->first();
 		if($user==null)
 		{
-			return \Redirect::back()->withErrors([User::$feedBackMessages['notMatch']]);
+			return \Redirect::back()->withInput()->withErrors([User::$feedBackMessages['notMatch']]);
 		}
 		
 		Auth::login($user);
@@ -39,7 +39,8 @@ class EloquentUsersController extends Controller
     public function index()
     {
     	//$users = User::all();
-    	$users = \DB::select('select * from users where id = ?', [Auth::user()->id]);
+    	// fazer um se, se ADM ver tudo, senao so o dele
+    	$users = User::where('id',Auth::user()->id)->get();
 
     	//return view('eloquent.index',['users'=>$users]); 
     	return view('eloquent.index',compact('users'));

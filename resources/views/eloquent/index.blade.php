@@ -1,6 +1,5 @@
 <!--  <a href={{ route('eloquent.account.create') }}> Criar nova Account</a></br></br>-->
 <a href={{route('logout')}}>Logout</a><br><br>
-<a href={{ route('eloquent.user.createuser') }}> Criar novo User</a></br></br>
 Listagem de usuarios
 
 <table border="1">

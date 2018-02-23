@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
     		
     		$table->foreign('lang_fk')->references('uuid')->on('languages');
     		
+    		//isso esta ativo pois é um atributo DEFAULT do laravel, se tirar, da erro quando fazer o logout
     		$table->rememberToken();
     	});
     }

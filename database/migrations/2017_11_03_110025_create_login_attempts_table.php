@@ -20,7 +20,7 @@ class CreateLoginAttemptsTable extends Migration
         	
         	$table->primary('ip');
         	
-        	$table->timestamps();
+        	//$table->timestamps();
         });
     }
 

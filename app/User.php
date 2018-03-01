@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Accounts;
 
 class User extends Authenticatable
 {
@@ -39,6 +40,11 @@ class User extends Authenticatable
     		
     ];
     
+    public function teste($nome)
+    {
+        return $nome;
+    }
+
     public function getAccounts()
     {
     	return $this->hasMany(Account::class,'user_fk');

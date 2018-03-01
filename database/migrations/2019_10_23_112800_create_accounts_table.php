@@ -27,7 +27,7 @@ class CreateAccountsTable extends Migration
         	
         	$table->index(['user_fk']);
         	
-        	$table->foreign('user_fk')->references('id')->on('users');
+        	$table->foreign('user_fk')->references('id')->on('users')->onDelete('cascade');
         	
         	//$table->timestamps();
         });

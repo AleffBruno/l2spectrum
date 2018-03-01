@@ -14,11 +14,6 @@ class EloquentAccountsController extends Controller
     	return view('eloquent.index',['accounts'=>$accounts]); 
     }
     
-    public function mostraecho()
-    {
-    	echo "foo";
-    }
-    
     public function create()
     {
     	return view('eloquent.create');

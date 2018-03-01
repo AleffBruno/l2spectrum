@@ -38,11 +38,29 @@ class EloquentUsersController extends Controller
 	
     public function index()
     {
-    	//$users = User::all();
-    	// fazer um se, se ADM ver tudo, senao so o dele
-    	$users = User::where('id',Auth::user()->id)->get();
+		// ATENTE-SE A PEGADINHA DA RESPOSTA , VEJA SE É UMA COLLECTION(ARRAY)
 
-    	//return view('eloquent.index',['users'=>$users]); 
+		//pega o usuario logado e coloca na variavel $users
+		$users = User::find(Auth::user()->id);
+
+		//pega todas as accounts relacionadas com o user lgado
+		$accounts = $users->getAccounts;
+
+		//verifica account uma por uma para ver se algua tem o access_level = 1  (Se é GM)
+		foreach($accounts as $account)
+		{
+			//se tiver access_level = 1 , redireciona pra view com todos os dados dos usuarios
+			if($account->access_level == "1")
+			{
+				$users = User::all();
+				return view('eloquent.index',compact('users'));
+			}else{
+				// se nao tiver, vai pra view so com seus proprios dados
+				$users = User::where('id',Auth::user()->id)->get();
+			}
+		}
+		// esse redirecionamento aqui e pq se eu por no foreach, no primeiro resultado
+		// que nao for access_level = 1, ele ja é redirecionado sem mesmo verificar os proximos
     	return view('eloquent.index',compact('users'));
     }
 	

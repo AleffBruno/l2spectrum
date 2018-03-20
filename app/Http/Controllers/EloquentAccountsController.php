@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Account;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class EloquentAccountsController extends Controller
 {
@@ -21,11 +22,16 @@ class EloquentAccountsController extends Controller
     
     public function store(Request $request)
     {
-    	$account = new Account();
-    	$this->validate($request, Account::$rules);
-    	$account->create($request->all());
+    	//verificar se a FK que vai pra accounts é do user logado
+    	if($request->user_fk == Auth::user()->id)
+    	{
+    		$account = new Account();
+    		$this->validate($request, Account::$rules);
+    		$account->create($request->all());
+    		return redirect(route('eloquent.user.list'));
+    	}
     	
-    	return redirect(route('eloquent.user.list'));
+    	return redirect()->back();
     }
     
     public function delete($login)

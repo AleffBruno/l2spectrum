@@ -57,4 +57,18 @@ class User extends Authenticatable
     	
     }
     
+    public function isAdmin(){
+    	$accounts = $this->getAccounts;
+    	foreach($accounts as $account)
+    	{
+    		//se tiver access_level = 1 , redireciona pra view com todos os dados dos usuarios
+    		if($account->access_level == "1")
+    		{
+    			return true;
+    		}else{
+    			// se nao tiver, vai pra view so com seus proprios dados
+    		}
+    	}
+    	return false;
+    }
 }

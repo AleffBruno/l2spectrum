@@ -21,7 +21,7 @@ Route::get('mostraecho',['middleware'=>'loggedMine','uses'=>'EloquentAccountsCon
 Route::group(['middleware'=>'loggedMine','prefix'=>'eloquent','as'=>'eloquent.'],function(){
 
 	//accounts
-	Route::get('accounts','EloquentAccountsController@index')->name('account.list');
+	Route::get('accounts/{id}','EloquentAccountsController@index')->name('account.list');
 	Route::get('accounts/create','EloquentAccountsController@create')->name('account.create');
 	Route::post('accounts/store','EloquentAccountsController@store')->name('account.store');
 	Route::get('accounts/delete/{login}','EloquentAccountsController@delete')->name('account.delete');
@@ -35,7 +35,7 @@ Route::group(['middleware'=>'loggedMine','prefix'=>'eloquent','as'=>'eloquent.']
 	Route::get('users/updateview/{id}','EloquentUsersController@updateuser_view')->name('user.updateuserview');
 	Route::post('users/update/{id}','EloquentUsersController@updateuser')->name('user.update');
 	Route::get('users/createaccount/{id}','EloquentUsersController@createaccount')->name('user.createaccount');
-	Route::get('users/veraccounts/{id}','EloquentUsersController@veraccounts')->name('user.veraccounts');
+	Route::get('users/veraccounts','EloquentUsersController@veraccounts')->name('user.veraccounts');
 });
 
 //livres

@@ -40,7 +40,6 @@ class EloquentUsersController extends Controller
     {
 		// ATENTE-SE A PEGADINHA DA RESPOSTA , VEJA SE É UMA COLLECTION(ARRAY)
 
-    	
 		$user = User::find(Auth::user()->id);
 		
 		if($user->isAdmin())
@@ -121,8 +120,10 @@ class EloquentUsersController extends Controller
 		return view('eloquent.createaccount',['userid'=>$user->id]);
 	}
 	
-	public function veraccounts($id)
+	public function veraccounts()
 	{
+		return redirect()->route('eloquent.account.list');
+		die();
 		//$accounts = Account::where('user_fk', $id)->get();
 		$user = User::find($id);
 		

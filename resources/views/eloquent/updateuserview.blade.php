@@ -1,4 +1,6 @@
 <html>
+<a href={{ route('eloquent.user.list') }}> Voltar</a>
+
 <h1>Update User</h1>
 <body>
 @if(isset($errors) && count($errors) > 0)

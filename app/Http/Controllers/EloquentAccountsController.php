@@ -6,14 +6,23 @@ use Illuminate\Http\Request;
 use App\Account;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class EloquentAccountsController extends Controller
 {
 	
     public function index($id)
     {
-    	$user = User::find(Auth::user()->id);
-    	
+		//$user = User::find(Auth::user()->id);
+		if (Gate::denies('seeAccount', $id)) {
+			//return \Redirect::back();
+			abort(403,'Nao autorizado');
+		}
+
+		$user = User::find($id);
+		$accounts = $user->getAccounts;
+		
+		/*
     	if($user->isAdmin())
     	{
     		$user = User::find($id);
@@ -21,11 +30,12 @@ class EloquentAccountsController extends Controller
     	}else{
     		$accounts = $user->getAccounts;
     	}
-    	
+    	*/
     	//$accounts = $user->getAccounts;
     	
     	//$accounts = Account::all();
-    	return view('eloquent.listagensdeaccounts',['accounts'=>$accounts,'user_name'=>User::find($id)['name']]); 
+		//return view('eloquent.listagensdeaccounts',['accounts'=>$accounts,'user_name'=>User::find($id)['name']]); 
+		return view('eloquent.listagensdeaccounts',['accounts'=>$accounts,'user_name'=>$user->name]); 
     }
     
     public function create()
@@ -35,33 +45,17 @@ class EloquentAccountsController extends Controller
     
     public function store(Request $request)
     {
-    	$user = User::find(Auth::user()->id);
-    	
-    	$account = new Account();
-    	$this->validate($request,  Account::$rules);
-    	$account->login = $request['login'];
-    	$account->password = $request['password'];
-    	
-    	if(Account::find($account->login)->count() > 0)
-    	{
-    		return \Redirect::back()->withInput()->withErrors("Account aready exists");
-    	}
-    	
-    	$user->getAccounts()->save($account);
-    	return redirect(route('eloquent.user.list'));
-    	
-    	/*
-    	//verificar se a FK que vai pra accounts é do user logado
-    	if($request->user_fk == Auth::user()->id)
-    	{
-    		$account = new Account();
-    		$this->validate($request, Account::$rules);
-    		$account->create($request->all());
-    		return redirect(route('eloquent.user.list'));
-    	}
-    	
-    	return redirect()->back();
-    	*/
+		$user = User::find(Auth::user()->id);
+		$account = new Account();
+		$this->validate($request,  Account::$rules);
+		if($account->find($request->login) == null)
+		{
+			$account->fill($request->all());
+			$user->getAccounts()->save($account);
+			return redirect(route('eloquent.account.list',Auth::user()->id));
+		}else{
+			return \Redirect::back()->withInput()->withErrors("Account aready exists");
+		}
     }
     
     public function delete($login)
@@ -80,9 +74,16 @@ class EloquentAccountsController extends Controller
     public function updateaccount($login,Request $request)
     {
     	$accountToUpdate = Account::find($login);
-    	$userid = $accountToUpdate->getUser;
-    	$this->validate($request, Account::$rules);
-    	
+    	$user = $accountToUpdate->getUser;
+		$this->validate($request, Account::$rules);
+		if($request->login != $accountToUpdate->login)
+		{
+			if(Account::find($request->login) != null)
+			{
+				return \Redirect::back()->withInput()->withErrors("Account aready exists");
+			}
+		}
+
     	$accountToUpdate->login = $request['login'];
     	$accountToUpdate->password = $request['password'];
     	$accountToUpdate->lastactive= $request['lastactive'];
@@ -91,8 +92,8 @@ class EloquentAccountsController extends Controller
     	$accountToUpdate->lastServer= $request['lastServer'];
     	
     	$accountToUpdate->save();
-    	
-    	return redirect()->route('eloquent.user.list');
+
+		return redirect(route('eloquent.account.list',$user->id));
     }
     
 }

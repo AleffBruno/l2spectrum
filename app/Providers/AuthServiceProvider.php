@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\User;
+use App\Account;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('seeAccount', function (User $user, $id) {
+            return $user->id == $id;
+        });
+
+        Gate::before(function ($user) {
+            if ($user->isAdmin()) {
+                return true;
+            }
+        });
     }
 }

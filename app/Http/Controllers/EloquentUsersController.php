@@ -85,25 +85,16 @@ class EloquentUsersController extends Controller
 	
 	public function updateuser($id , Request $request)
 	{
-		//$name = $request->input('name');
 		$userToUpdate = User::find($id);
 		
-// 		if($request['name'] == "" || $request['name'] == null)
-// 		{
-// 			$request['name'] = $userToUpdate->name;
-// 		}
-		
-// 		if($request['email'] == "" || $request['email'] == null)
-// 		{
-// 			$request['email'] = $userToUpdate->email;
-// 		}
-		
-// 		if($request['password'] == "" || $request['password'] == null)
-// 		{
-// 			$request['password'] = $userToUpdate->password;
-// 		}
-		
 		$this->validate($request, User::$rules);
+		if($request->email != $userToUpdate->email)
+		{
+			if(User::where('email',$request->email)->first() != null)
+			{
+				return \Redirect::back()->withInput()->withErrors("User aready exists");
+			}
+		}
 		
 		$userToUpdate->name = $request['name'];
 		$userToUpdate->email = $request['email'];

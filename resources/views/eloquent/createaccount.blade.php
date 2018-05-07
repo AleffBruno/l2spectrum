@@ -1,4 +1,6 @@
 <html>
+<a href={{ route('eloquent.user.list') }}> Voltar</a>
+
 <h1>Criar Account</h1>
 <body>
 @if(isset($errors) && count($errors) > 0)
@@ -9,7 +11,7 @@
 
 <form method="post" action="{{route('eloquent.account.store')}}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
-	login<input type="text" name="login">
+	login<input type="text" name="login" value="{{old("login")}}">
 	password<input type="text" name="password">
 	lastactive<input type="text" name="lastactive">
 	access_level<input type="text" name="access_level">

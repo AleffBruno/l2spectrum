@@ -9,7 +9,7 @@
 	@endforeach
 @endif
 
-<form method="post" action="{{route('eloquent.account.store')}}">
+<form method="post" action="{{route('eloquent.account.store',$userid)}}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}"/>
 	login<input type="text" name="login" value="{{old("login")}}">
 	password<input type="text" name="password">

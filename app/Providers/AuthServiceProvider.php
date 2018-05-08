@@ -27,8 +27,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('seeAccount', function (User $user, $id) {
+        Gate::define('actionAccount', function (User $user, $id) {
             return $user->id == $id;
+        });
+
+        Gate::define('actionsWithLoginParamAccount', function (User $user, $login) {
+            $account = Account::find($login);
+            if($account != null)
+            {
+                $userOwnerAccount = $account->getUser;
+                return $user->id == $userOwnerAccount->id;
+            }
+            return false;
         });
 
         Gate::before(function ($user) {

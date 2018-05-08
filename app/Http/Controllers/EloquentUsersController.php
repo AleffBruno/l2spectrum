@@ -12,7 +12,6 @@ class EloquentUsersController extends Controller
     
 	public function login_post(Request $request)
 	{
-		
 		$user = User::where('email', $request['email'])
 		->where('password', User::hashPassword($request['password']))
 		->first();
@@ -40,12 +39,12 @@ class EloquentUsersController extends Controller
     {
 		// ATENTE-SE A PEGADINHA DA RESPOSTA , VEJA SE É UMA COLLECTION(ARRAY)
 
-		$user = User::find(Auth::user()->id);
+		$user = Auth::user();
 		
 		if($user->isAdmin())
 		{
 			$users = User::all();
-			return view('eloquent.index',compact('users'));
+			//return view('eloquent.index',compact('users'));
 		}else{
 			$users = User::where('id',Auth::user()->id)->get();
 		}
@@ -107,11 +106,11 @@ class EloquentUsersController extends Controller
 	
 	public function createaccount($id)
 	{
-		$user = User::find($id);
-		return view('eloquent.createaccount',['userid'=>$user->id]);
+		//$user = User::find($id);
+		return view('eloquent.createaccount',['userid'=>$id]);
 	}
 	
-	public function veraccounts()
+	/* public function veraccounts()
 	{
 		return redirect()->route('eloquent.account.list');
 		die();
@@ -120,14 +119,7 @@ class EloquentUsersController extends Controller
 		
 		$accounts = $user->getAccounts;
 		
-		/*
-		foreach($accounts as $account)
-		{
-			echo ($account->login)."<br>";
-		}
-		*/
 		return view('eloquent.listagensdeaccounts',['accounts'=>$accounts,'user_name'=>$user->name]);
-		
-	}
+	} */
 	
 }

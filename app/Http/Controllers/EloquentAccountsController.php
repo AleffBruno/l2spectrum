@@ -14,7 +14,8 @@ class EloquentAccountsController extends Controller
     public function index($id)
     {
 		//$user = User::find(Auth::user()->id);
-		if (Gate::denies('seeAccount', $id)) {
+		if (Gate::denies('actionAccount', $id)) 
+		{
 			//return \Redirect::back();
 			abort(403,'Nao autorizado');
 		}
@@ -43,9 +44,16 @@ class EloquentAccountsController extends Controller
     	return view('eloquent.create');
     }
     
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
-		$user = User::find(Auth::user()->id);
+		if (Gate::denies('actionAccount', $id)) 
+		{
+			//return \Redirect::back();
+			abort(403,'Nao autorizado');
+		}
+
+		//$user = User::find(Auth::user()->id);
+		$user = User::find($id);
 		$account = new Account();
 		$this->validate($request,  Account::$rules);
 		if($account->find($request->login) == null)
@@ -60,7 +68,14 @@ class EloquentAccountsController extends Controller
     
     public function delete($login)
     {
-    	$account = Account::where('login',$login)->get()->first()->delete();
+		if(Gate::denies('actionsWithLoginParamAccount',$login))
+		{
+			//return \Redirect::back();
+			abort(403,'Nao autorizado');
+		}
+
+		$account = Account::where('login',$login)->get()->first()->delete();
+		
     	return back();
     }
     
@@ -73,6 +88,12 @@ class EloquentAccountsController extends Controller
     
     public function updateaccount($login,Request $request)
     {
+		if(Gate::denies('actionsWithLoginParamAccount',$login))
+		{
+			//return \Redirect::back();
+			abort(403,'Nao autorizado');
+		}
+		
     	$accountToUpdate = Account::find($login);
     	$user = $accountToUpdate->getUser;
 		$this->validate($request, Account::$rules);

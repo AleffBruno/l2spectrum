@@ -14,11 +14,12 @@ class EloquentAccountsController extends Controller
     public function index($id)
     {
 		//$user = User::find(Auth::user()->id);
-		if (Gate::denies('actionAccount', $id)) 
+		/* if (Gate::denies('actionAccount', $id)) 
 		{
 			//return \Redirect::back();
 			abort(403,'Nao autorizado');
-		}
+		} */
+		
 
 		$user = User::find($id);
 		$accounts = $user->getAccounts;

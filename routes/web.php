@@ -18,10 +18,13 @@ Route::get('/', function () {
 Route::get('mostraecho',['middleware'=>'loggedMine','uses'=>'EloquentAccountsController@mostraecho']);
 
 //tem que estar logado
-Route::group(['middleware'=>'loggedMine','prefix'=>'eloquent','as'=>'eloquent.'],function(){
+Route::group(['middleware'=>['loggedMine'],'prefix'=>'eloquent','as'=>'eloquent.'],function(){
 
+	Route::group(['middleware'=>'can:actionAccount,id'],function(){
+		Route::get('accounts/{id}','EloquentAccountsController@index')->name('account.list');
+	});
 	//accounts
-	Route::get('accounts/{id}','EloquentAccountsController@index')->name('account.list');
+	//Route::get('accounts/{id}','EloquentAccountsController@index')->name('account.list');
 	Route::get('accounts/create','EloquentAccountsController@create')->name('account.create');
 	Route::post('accounts/store/{id}','EloquentAccountsController@store')->name('account.store');
 	Route::get('accounts/delete/{login}','EloquentAccountsController@delete')->name('account.delete');
